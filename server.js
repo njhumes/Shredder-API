@@ -5,10 +5,12 @@ const cors = require('cors');
 const session = require('express-session');
 const morgan = require('morgan')
 require('./db/db');
+require('dotenv').config()
+
 
 app.use(session({
     secret: 'ride the pow',
-    resave: false,
+    resave: true,
     saveUninitialized: false
 }));
 
