@@ -48,17 +48,30 @@ router.post('/login', async (req, res, next) => {
                 req.session.username = foundUser.username;
                 req.session.email = foundUser.email;
                 req.session.logged = true;
+                console.log(req.session, 'req.session')
+                console.log(req.session.logged, 'req.session.logged');
+                res.json({
+                    status: 200,
+                    data: 'successful login',
+                    info: foundUser
+                })
+                console.log(foundUser, 'foundUser')
             } else {
                 console.log('incorrect password');
+                res.json({
+                    status: 200,
+                    data: 'incorrect username or password'
+                })
             }
         } else {
             console.log('incorrect username');
+            res.json({
+                status: 200,
+                data: 'incorrect username or password'
+            })
         }
 
-        res.json({
-            status: 200,
-            data: foundUser
-        })
+       
 
     } catch (err) {
         console.log(err);

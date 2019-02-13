@@ -10,7 +10,7 @@ require('dotenv').config()
 
 app.use(session({
     secret: 'ride the pow',
-    resave: true,
+    resave: false,
     saveUninitialized: false
 }));
 
