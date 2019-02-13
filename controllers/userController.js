@@ -21,10 +21,15 @@ router.get('/', async (req, res, next) => {
 
 // Registering a new user
 router.post('/register', async (req, res, next) => {
-    console.log(req.body, 'req.body')
+    const password = req.body.password
+    req.body.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+    
     console.log(req.session, 'req.session')
     try {
         const createdUser = await User.create(req.body);
+        // make the req.body.passowrd use bcrypt
+        // console.log(encryptedPassword, 'bcrypt password')
+        console.log(req.body, 'req.body')
         res.json({
             status: 200,
             data: createdUser
@@ -43,7 +48,7 @@ router.post('/login', async (req, res, next) => {
     try {
         const foundUser = await User.findOne({'username': req.body.username});
         if(foundUser){
-            if(req.body.password === foundUser.password){
+            if(bcrypt.compareSync(req.body.password, foundUser.password)){
                 console.log('you are logged in, correct password');
                 req.session.username = foundUser.username;
                 req.session.email = foundUser.email;
