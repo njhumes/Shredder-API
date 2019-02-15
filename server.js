@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(morgan('short'));
 
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: process.env.CORS_URI,
     credentials: true,
     optionsSuccessStatus: 200
 }
