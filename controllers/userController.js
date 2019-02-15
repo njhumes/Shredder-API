@@ -114,6 +114,21 @@ router.put('/:id', async (req, res, next) => {
     }
 })
 
+//Logout
+
+router.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            res.send(err);
+        } else {
+            res.json({
+                status: 200,
+                data: 'logged out'
+            })
+        }
+    });
+});
+
 // Delete User
 router.delete('/:id', async (req, res, next) => {
     try {
