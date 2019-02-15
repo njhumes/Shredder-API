@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const session = require('express-session');
 const morgan = require('morgan')
+const trailData = require('./populateTrails')
+const KeystoneTrails = require('./models/trail')
 require('./db/db');
 require('dotenv').config()
 
@@ -31,6 +33,12 @@ const trailController = require('./controllers/trailController');
 
 app.use('/trails', trailController);
 app.use('/user', userController);
+
+KeystoneTrails.collection.insertMany(trailData, (err, data) => {
+    console.log("added provided vampire data")
+    // mongoose.connection.close(connectionString);
+});
+
 
 app.listen(process.env.PORT || 9000, () => {
     console.log('express is listening on port 9000')
