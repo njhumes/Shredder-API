@@ -21,6 +21,7 @@ router.get('/', async (req, res, next) => {
 
 // Registering a new user
 router.post('/register', async (req, res, next) => {
+    console.log('hello')
     const password = req.body.password
     req.body.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
     
