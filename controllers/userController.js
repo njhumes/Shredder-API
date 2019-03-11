@@ -45,7 +45,7 @@ router.post('/register', async (req, res, next) => {
 // Login Function 
 router.post('/login', async (req, res, next) => {
     console.log(req.body, 'req.body')
-    console.log(req.session, 'req.session')
+    console.log(req.session, 'req.sessionUC1')
     try {
         const foundUser = await User.findOne({'username': req.body.username});
         if(foundUser){
@@ -54,7 +54,8 @@ router.post('/login', async (req, res, next) => {
                 req.session.username = foundUser.username;
                 req.session.email = foundUser.email;
                 req.session.logged = true;
-                console.log(req.session, 'req.session')
+                req.session._id = foundUser._id
+                console.log(req.session, 'req.sessionUC@@2')
                 console.log(req.session.logged, 'req.session.logged');
                 res.json({
                     status: 200,
@@ -145,6 +146,26 @@ router.delete('/:id', async (req, res, next) => {
     }
 })
 
+
+router.post('/trails/:id', async (req, res) => {
+    console.log('route workign on user controller');
+    console.log(req.session, 'req.session');
+    try {
+        const user = await User.findById(req.session._id);
+        console.log(user, 'userController user');
+        const favoriteTrail = await Trail.findById(req.params.id);
+        console.log(favoriteTrail, 'userController favoriteTrail')
+        user.favoriteTrails.push(favoriteTrail)
+        await user.save();
+        res.json({
+            status: 200,
+            data: user
+        })
+    } catch(err) {
+        console.log(err);
+        res.send(err);
+    }
+})
 
 
 module.exports = router;

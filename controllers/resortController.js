@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Resort = require('../models/resort');
+const Trail = require('../models/trail');
 
 router.get('/', async (req, res) => {
     try {
@@ -29,5 +30,6 @@ router.post('/', async (req, res) => {
         res.send(err)
     }
 })
+
 
 module.exports = router;

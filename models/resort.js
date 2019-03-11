@@ -4,7 +4,10 @@ const Trails = require('./trail');
 const ResortSchema = new mongoose.Schema({
     name: String,
     logo: String,
-    pass: String,
+    passName: String,
+    passLogo: String,
+    lat: String,
+    long: String,
     trails: [Trails.schema]
 })
 
