@@ -30,6 +30,45 @@ router.post('/', async (req, res) => {
         res.send(err)
     }
 })
+router.get('/:id', async (req, res, next) => {
+    try {
+        const shownResort = await Resort.findById(req.params.id);
+        res.json({
+            status: 200,
+            data: shownResort
+        })
 
+    } catch (err) {
+        console.log(err);
+        res.send(err);
+    }
+})
 
+router.put('/:id', async (req, res, next) => {
+    try {
+        const updatedResort = await Resort.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.json({
+            status: 200,
+            data: updatedResort
+        })
+
+    } catch (err) {
+        console.log(err);
+        res.send(err);
+    }
+})
+
+router.delete('/:id', async (req, res, next) => {
+    try {
+        const deletedResort = await Resort.findByIdAndDelete(req.params.id);
+        res.json({
+            status: 200,
+            data: deletedResort
+        })
+
+    } catch (err) {
+        console.log(err);
+        res.send(err);
+    }
+})
 module.exports = router;
