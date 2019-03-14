@@ -8,6 +8,7 @@ const ResortSchema = new mongoose.Schema({
     passLogo: String,
     lat: String,
     long: String,
+    fatmap: String,
     trails: [Trails.schema]
 })
 
